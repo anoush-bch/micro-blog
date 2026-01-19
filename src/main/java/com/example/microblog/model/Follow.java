@@ -11,23 +11,64 @@ import java.io.Serializable;
 public class Follow {
 
     @Id
-    private String followerId;
+    @ManyToOne
+    //@MapsId("followerId")
+    @JoinColumn(name = "follower_id", foreignKey = @ForeignKey(name = "flwr_user"))
+    private User follower; 
 
     @Id
-    private String followeeId;
+    @ManyToOne
+   // @MapsId("followeeId")
+    @JoinColumn(name = "followee_id", foreignKey = @ForeignKey(name = "flwee_user"))
+    private User followee;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "post_id", foreignKey = @ForeignKey(name = "follow_post"))
+    private Post post;
+
 
     protected Follow() {}
 
-    public Follow(String followerId, String followeeId) {
-        this.followerId = followerId;
-        this.followeeId = followeeId;
+    public Follow(User follower, User followee) {
+        this.follower = follower;
+        this.followee = followee;
     }
 
-    public String getFollowerId() { return followerId; }
-    public String getFolloweeId() { return followeeId; }
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+
+
+    public User getFollower() { return follower; }
+    public User getFollowee() { return followee; }
 
     public static class Key implements Serializable {
-        public String followerId;
-        public String followeeId;
+        //many to many
+        public User follower;
+        //owner of the blog - many to one
+        public User followee;
+
+        public Key() {
+            
+        }
+
+        public Key(User follower, User followee) {
+            this.follower = follower;
+            this.followee = followee;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if(this == o) return true;
+            if( o== null || getClass() != o.getClass()) return false;
+            Key key = (Key)o;
+            return follower.equals(key.followee) & followee.equals(key.followee);
+        }
+
+        @Override
+        public int hashCode() {
+            return java.util.Objects.hash(follower, followee);
+        }
     }
 }

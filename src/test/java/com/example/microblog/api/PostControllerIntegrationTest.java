@@ -1,6 +1,5 @@
-package com.example.microblog;
+package com.example.microblog.api;
 
-import com.example.microblog.model.Post;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
