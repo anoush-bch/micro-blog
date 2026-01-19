@@ -36,7 +36,7 @@ erDiagram
     Follow ||--o{ User : follower_id
     Post }o -- || Follow : post_id
     User {
-        string id
+        int id
         string user_id
     }
     Follow {
@@ -45,7 +45,7 @@ erDiagram
         int post_id
     }
     Post {
-        string id
+        int id
         string user_id
         string content
     } 

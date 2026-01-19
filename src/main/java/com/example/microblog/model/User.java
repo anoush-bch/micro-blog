@@ -9,12 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity(name = "user")
-@Getter
-@Setter
 public class User {
 
     public User(){}
@@ -41,6 +37,12 @@ public class User {
     @OneToMany(mappedBy = "follower", fetch = FetchType.LAZY)
     private List<Follow> follower;
 
+    public Long getId(){
+        return this.id;
+    } 
 
+    public String getUserId() {
+        return userId;
+    }
 
 }
