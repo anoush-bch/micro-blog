@@ -42,14 +42,14 @@ public class PostService {
          //lookup follower by userId passed, create new user if it does not exist
         User followerUser = userRepo.findByUserId(followerId).orElseGet(() -> {
             User u = new User(followerId);
-            return userRepo.save(u);
+            return userRepo.saveAndFlush(u);
         });
-        
+
         Follow follow = new Follow(followerUser, followeeUser);
         follow.setPost(post);
         followRepo.saveAndFlush(follow);
-
-        return post;
+        post.getFollowings().add(follow);
+        return  postRepo.saveAndFlush(post);
     }
 
 }

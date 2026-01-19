@@ -26,3 +26,27 @@ Basic Spring Boot & JPA tests are pre‑wired (see `src/test/java`).
 ```bash
 mvn clean test
 ```
+
+### ER Diagram
+
+
+```mermaid
+erDiagram
+    Follow ||--o{ User : followee_id
+    Follow ||--o{ User : follower_id
+    Post }o -- || Follow : post_id
+    User {
+        string id
+        string user_id
+    }
+    Follow {
+        int followee_id
+        int follower_id
+        int post_id
+    }
+    Post {
+        string id
+        string user_id
+        string content
+    } 
+```
