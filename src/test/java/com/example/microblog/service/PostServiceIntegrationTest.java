@@ -6,13 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.Instant;
 import java.util.List;
 
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
 
 import com.example.microblog.model.Follow;
 import com.example.microblog.model.Post;
@@ -36,8 +33,8 @@ public class PostServiceIntegrationTest {
 
 
     
-    public Long populatePost(){
-        User user = new User("mike");
+    public Long populatePost(String userId){
+        User user = new User(userId);
         userRepo.saveAndFlush(user);
         Post post= new Post(9L, "mike", "my own post mike!", Instant.now());
         post = postRepo.saveAndFlush(post);
@@ -48,7 +45,7 @@ public class PostServiceIntegrationTest {
     @Test
     public void testSavePostFollow_existingPost() {
 
-        Long postId = populatePost();
+        Long postId = populatePost("mike");
         String followerId = "john";
       
         Post post = postService.savePostFollow(followerId, postId.toString());
@@ -58,12 +55,7 @@ public class PostServiceIntegrationTest {
         for(Follow follow:followings) {
             assertEquals("mike", follow.getFollowee().getUserId());
             assertEquals("john", follow.getFollower().getUserId());
-             System.out.println("followee: " + follow.getFollowee().getUserId() + ", followerId: " + follow.getFollower().getUserId());
+             System.out.println("followee: " + follow.getFollowee().getUserId() + ", followerId: " + follow.getFollower().getUserId()); 
         }
-       
     }
-    
-
-
-
-}
+   }

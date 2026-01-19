@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.microblog.model.Follow;
 import com.example.microblog.model.Post;
 import com.example.microblog.repository.PostRepository;
 import com.example.microblog.service.PostService;

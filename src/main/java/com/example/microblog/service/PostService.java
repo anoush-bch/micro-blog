@@ -37,7 +37,7 @@ public class PostService {
       
          //lookup followee/author by post's userId, throw exception if not found. It should be found assuming that post has a user
         User followeeUser = userRepo.findByUserId(post.getUserId()).orElseThrow(()->
-           new EntityNotFoundException("--user not found user id " + post.getUserId()));
+           new EntityNotFoundException("--user not found with user id " + post.getUserId()));
 
          //lookup follower by userId passed, create new user if it does not exist
         User followerUser = userRepo.findByUserId(followerId).orElseGet(() -> {
