@@ -12,18 +12,16 @@ public class Follow {
 
     @Id
     @ManyToOne
-    //@MapsId("followerId")
-    @JoinColumn(name = "follower_id", foreignKey = @ForeignKey(name = "flwr_user"))
+    @JoinColumn(name = "follower_id")
     private User follower; 
 
     @Id
     @ManyToOne
-   // @MapsId("followeeId")
-    @JoinColumn(name = "followee_id", foreignKey = @ForeignKey(name = "flwee_user"))
+    @JoinColumn(name = "followee_id")
     private User followee;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "post_id", foreignKey = @ForeignKey(name = "follow_post"))
+    @JoinColumn(name = "post_id")
     private Post post;
 
 
@@ -44,9 +42,9 @@ public class Follow {
     public User getFollowee() { return followee; }
 
     public static class Key implements Serializable {
-        //many to many
+        //user follower
         public User follower;
-        //owner of the blog - many to one
+        //owner of the blog 
         public User followee;
 
         public Key() {
