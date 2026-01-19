@@ -33,21 +33,25 @@ public class PostServiceIntegrationTest {
     @Autowired
     UserRepository userRepo;
 
-    @BeforeEach
-    public void populate(){
-        Post post= new Post(1L, "alice", "my own post alice!", Instant.now());
-        postRepo.save(post);
-        User user = new User(1L, "alice");
-        userRepo.save(user);
 
+
+    
+    public Long populatePost(){
+        User user = new User("mike");
+        userRepo.saveAndFlush(user);
+        Post post= new Post(9L, "mike", "my own post mike!", Instant.now());
+        post = postRepo.saveAndFlush(post);
+        //id I passed gets ignored, doh
+        return post.getId();
     }
 
     @Test
-    public void testSavePostFollow() {
-       
-        String postId = "1";
+    public void testSavePostFollow_existingPost() {
+
+        Long postId = populatePost();
         String followerId = "john";
-        Post post = postService.savePostFollow(followerId, postId);
+      
+        Post post = postService.savePostFollow(followerId, postId.toString());
         List<Follow> followings = post.getFollowings();
         assertTrue(followings.size() > 0);
 
