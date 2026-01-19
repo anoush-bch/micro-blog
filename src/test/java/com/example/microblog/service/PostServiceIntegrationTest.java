@@ -56,7 +56,7 @@ public class PostServiceIntegrationTest {
         assertTrue(followings.size() > 0);
 
         for(Follow follow:followings) {
-            assertEquals("alice", follow.getFollowee().getUserId());
+            assertEquals("mike", follow.getFollowee().getUserId());
             assertEquals("john", follow.getFollower().getUserId());
              System.out.println("followee: " + follow.getFollowee().getUserId() + ", followerId: " + follow.getFollower().getUserId());
         }
